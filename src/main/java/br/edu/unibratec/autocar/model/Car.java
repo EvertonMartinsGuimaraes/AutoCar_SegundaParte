@@ -9,7 +9,14 @@ public class Car {
 	private int remainingKm;
 	private int nextReview;
 	private double gasLevel;
+	
+	private double oilReductionRate, waterReductionRate, gasConsumptionRate;
+	private int eachReviewKm;
 
+	public Car() {
+
+	}
+	
 	public Car(double oilLevel, double waterLevel, int currentKm, int remainingKm, double gasLevel) {
 		this.oilLevel = oilLevel;
 		this.waterLevel = waterLevel;
@@ -19,8 +26,36 @@ public class Car {
 
 	}
 
-	public Car() {
+	public double getOilReductionRate() {
+		return oilReductionRate;
+	}
 
+	public void setOilReductionRate(double oilReductionRate) {
+		this.oilReductionRate = oilReductionRate;
+	}
+
+	public double getWaterReductionRate() {
+		return waterReductionRate;
+	}
+
+	public void setWaterReductionRate(double waterReductionRate) {
+		this.waterReductionRate = waterReductionRate;
+	}
+
+	public double getGasConsumptionRate() {
+		return gasConsumptionRate;
+	}
+
+	public void setGasConsumptionRate(double gasConsumptionRate) {
+		this.gasConsumptionRate = gasConsumptionRate;
+	}
+
+	public int getEachReviewKm() {
+		return eachReviewKm;
+	}
+
+	public void setEachReviewKm(int eachReviewKm) {
+		this.eachReviewKm = eachReviewKm;
 	}
 
 	public double getOilLevel() {

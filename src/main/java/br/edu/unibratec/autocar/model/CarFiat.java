@@ -8,50 +8,38 @@ EM CASO DE NOVO CARRO SÓ É NECESSARIO CRIAR UMA NOVA CLASSE COMO ESSA E ALTERAR 
 public class CarFiat extends Car implements ICarModel {
 		
 	//CONSTANTES PARA ESSE CARRO.
-	private static final double oilReductionRate = 0.02, waterReductionRate = 0.01, gasConsumptionRate = 7;
-	private static final int eachReviewKm = 3000;
+//	private static final double oilReductionRate = 0.02, waterReductionRate = 0.01, gasConsumptionRate = 7;
+//	private static final int eachReviewKm = 3000;
 		
 	//CONSTRUTOR - PADRÃO PARA TODOS OS CARROS.
 	public CarFiat() {
 		super.setOilLevel(1000);
 		super.setCurrentKm(0);
 		super.setGasLevel(100);
-		super.setNextReview(eachReviewKm);
-		super.setRemainingKm(eachReviewKm);
+		super.setNextReview(3000);
+		super.setRemainingKm(3000);
 		super.setWaterLevel(1000);
+		super.setOilReductionRate(0.02);
+		super.setWaterReductionRate(0.01);
+		super.setGasConsumptionRate(7);
+		super.setEachReviewKm(3000);
 	}
 
 	
-	//ABAIXO OS METODOS SET - PARA ALTERAÇÃO DE NIVEIS E KM E GET - PARA ACESSO A ESSES DADOS 
-	public static double getWaterreductionrate() {
-		return waterReductionRate;
-	}
-
-	public static double gasConsumptionRate() {
-		return gasConsumptionRate;
-	}
-
-	public static double getOilreductionrate() {
-		return oilReductionRate;
-	}
-
-	public static int getEachreviewkm() {
-		return eachReviewKm;
-	}
 	
 	//routeRate É A TAXA DE VARIAÇÃO CONFORME A ROTA ESCOLHIDA. TRECHO URBAN CONSOME MAIS.
 	public void setOilReduction(int kmDistance, double routeRate) {
 		
-		setOilLevel((super.getOilLevel() - (getOilreductionrate() * kmDistance))*routeRate);
+		setOilLevel((super.getOilLevel() - (super.getOilReductionRate() * kmDistance))*routeRate);
 	}
 
 	public void setWaterReduction(int kmDistance, double routeRate) {
 		
-		setWaterLevel((super.getWaterLevel() - (getWaterreductionrate() * kmDistance))*routeRate);
+		setWaterLevel((super.getWaterLevel() - (super.getWaterReductionRate() * kmDistance))*routeRate);
 	}
 
 	public void setGasReduction(int kmDistance, double routeRate) {
-		setGasLevel((super.getGasLevel() - (kmDistance  / gasConsumptionRate()))*routeRate);
+		setGasLevel((super.getGasLevel() - (kmDistance  / super.getGasConsumptionRate()))*routeRate);
 	}
 
 	public void setKmReduction(int kmDistance, double routeRate) {
@@ -72,11 +60,11 @@ public class CarFiat extends Car implements ICarModel {
 
 	public void setNewReview() {
 		int km = super.getCurrentKm();
-		int nextReview = getEachreviewkm();
+		int nextReview = super.getEachReviewKm();
 
-		for (; km / getEachreviewkm() >= 1;) {
-			km = km - getEachreviewkm();
-			nextReview = nextReview + getEachreviewkm();
+		for (; km / super.getEachReviewKm() >= 1;) {
+			km = km - super.getEachReviewKm();
+			nextReview = nextReview + super.getEachReviewKm();
 		}
 		setNextReview(nextReview);
 	}
