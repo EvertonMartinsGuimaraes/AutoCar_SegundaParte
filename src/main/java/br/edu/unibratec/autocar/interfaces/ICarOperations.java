@@ -6,7 +6,7 @@ import java.util.List;
 public interface ICarOperations<Object> {
 		
 		// inserir
-		public void insert(Object registro);
+		public void insert();
 		// deletar registro pelo id
 		public void delete(int id);
 		// atualizar
@@ -14,6 +14,6 @@ public interface ICarOperations<Object> {
 		// listar todos
 		public List<Object> getAll();
 		// listar pelo id
-		public Object getWithId(int id);
+		public Object select();
 
 }

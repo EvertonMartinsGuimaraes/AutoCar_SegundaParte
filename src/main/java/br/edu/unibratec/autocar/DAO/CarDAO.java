@@ -7,10 +7,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import br.edu.unibratec.autocar.interfaces.ICarModel;
-import br.edu.unibratec.autocar.interfaces.ICarOperations;
 import br.edu.unibratec.autocar.model.Car;
 
-public class CarDAO implements ICarOperations<Car>{
+public class CarDAO{
 	
 	private SessionFactory sessionFactory;
 	
