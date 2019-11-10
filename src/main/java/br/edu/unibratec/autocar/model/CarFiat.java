@@ -1,10 +1,15 @@
 package br.edu.unibratec.autocar.model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import br.edu.unibratec.autocar.interfaces.ICarModel;
 
 
 /*EXEMPLO DE CARRO CRIADO.
 EM CASO DE NOVO CARRO SÓ É NECESSARIO CRIAR UMA NOVA CLASSE COMO ESSA E ALTERAR SOMENTE AS VARIAVEIS CONSTANTES.*/
+@Entity
+@DiscriminatorValue("F")
 public class CarFiat extends Car implements ICarModel {
 		
 	//CONSTANTES PARA ESSE CARRO.
@@ -12,6 +17,7 @@ public class CarFiat extends Car implements ICarModel {
 //	private static final int eachReviewKm = 3000;
 		
 	//CONSTRUTOR - PADRÃO PARA TODOS OS CARROS.
+
 	public CarFiat() {
 		super.setOilLevel(1000);
 		super.setCurrentKm(0);
@@ -23,6 +29,7 @@ public class CarFiat extends Car implements ICarModel {
 		super.setWaterReductionRate(0.01);
 		super.setGasConsumptionRate(7);
 		super.setEachReviewKm(3000);
+//		super.setCarModel('F');
 	}
 
 	

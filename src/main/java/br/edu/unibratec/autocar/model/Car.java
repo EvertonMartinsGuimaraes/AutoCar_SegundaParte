@@ -1,14 +1,32 @@
 package br.edu.unibratec.autocar.model;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-
-// CLASSE PAI CAR
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)	
+@DiscriminatorColumn(name="carModel", length=1, discriminatorType = DiscriminatorType.CHAR)
+@DiscriminatorValue("C")
 public class Car {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 	private double oilLevel;
 	private double waterLevel;
 	private int currentKm;
 	private int remainingKm;
 	private int nextReview;
 	private double gasLevel;
+	@Column(insertable=false, updatable=false)
+	private char carModel;
 	
 	private double oilReductionRate, waterReductionRate, gasConsumptionRate;
 	private int eachReviewKm;
@@ -17,13 +35,29 @@ public class Car {
 
 	}
 	
-	public Car(double oilLevel, double waterLevel, int currentKm, int remainingKm, double gasLevel) {
+	public Car(double oilLevel, double waterLevel, int currentKm, int remainingKm, double gasLevel, char carModel) {
 		this.oilLevel = oilLevel;
 		this.waterLevel = waterLevel;
 		this.currentKm = currentKm;
 		this.remainingKm = remainingKm;
 		this.gasLevel = gasLevel;
+		this.carModel = carModel;
+	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public char getCarModel() {
+		return carModel;
+	}
+
+	public void setCarModel(char carModel) {
+		this.carModel = carModel;
 	}
 
 	public double getOilReductionRate() {

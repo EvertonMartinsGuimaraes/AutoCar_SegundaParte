@@ -1,7 +1,12 @@
 package br.edu.unibratec.autocar.model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import br.edu.unibratec.autocar.interfaces.ICarModel;
 
+@Entity
+@DiscriminatorValue("N")
 public class CarNissan extends Car implements ICarModel {
 
 //	private static final double oilReductionRate = 0.05, waterReductionRate = 0.01, gasConsumptionRate = 8;
