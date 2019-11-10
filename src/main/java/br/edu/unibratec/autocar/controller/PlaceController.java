@@ -2,10 +2,12 @@ package br.edu.unibratec.autocar.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.edu.unibratec.autocar.interfaces.IPlaceOperations;
 import br.edu.unibratec.autocar.model.Place;
 import br.edu.unibratec.autocar.model.Place.ROUTE_TYPE;
 
-public class PlaceController {
+public class PlaceController implements IPlaceOperations<Place>{
 	
 	List<Place> places = new ArrayList<Place>();
 	
@@ -22,5 +24,30 @@ public class PlaceController {
 	//GET PARA ACESSO AO ARRAY
 	public  List<Place> getPlacesList() {
 		return places;
+	}
+
+	public void insert(Place registre) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void update(Place registre) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public List<Place> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Place select() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
