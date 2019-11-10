@@ -1,12 +1,12 @@
 package br.edu.unibratec.autocar.model;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+//import javax.persistence.DiscriminatorValue;
+//import javax.persistence.Entity;
 
 import br.edu.unibratec.autocar.interfaces.ICarModel;
 
-@Entity
-@DiscriminatorValue("V")
+//@Entity
+//@DiscriminatorValue("V")
 public class CarVolkswagem extends Car implements ICarModel {
 
 //	private static final double oilReductionRate = 0.03, waterReductionRate = 0.02, gasConsumptionRate = 5;

@@ -1,23 +1,23 @@
 package br.edu.unibratec.autocar.model;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+//import javax.persistence.Column;
+//import javax.persistence.DiscriminatorColumn;
+//import javax.persistence.DiscriminatorType;
+//import javax.persistence.DiscriminatorValue;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
+//import javax.persistence.Inheritance;
+//import javax.persistence.InheritanceType;
 
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)	
-@DiscriminatorColumn(name="carModel", length=1, discriminatorType = DiscriminatorType.CHAR)
-@DiscriminatorValue("C")
+//@Entity
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)	
+//@DiscriminatorColumn(name="carModel", length=1, discriminatorType = DiscriminatorType.CHAR)
+//@DiscriminatorValue("C")
 public class Car {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private double oilLevel;
 	private double waterLevel;
@@ -25,7 +25,7 @@ public class Car {
 	private int remainingKm;
 	private int nextReview;
 	private double gasLevel;
-	@Column(insertable=false, updatable=false)
+//	@Column(insertable=false, updatable=false)
 	private char carModel;
 	
 	private double oilReductionRate, waterReductionRate, gasConsumptionRate;

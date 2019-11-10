@@ -1,15 +1,15 @@
 package br.edu.unibratec.autocar.model;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+//import javax.persistence.DiscriminatorValue;
+//import javax.persistence.Entity;
 
 import br.edu.unibratec.autocar.interfaces.ICarModel;
 
 
 /*EXEMPLO DE CARRO CRIADO.
 EM CASO DE NOVO CARRO SÓ É NECESSARIO CRIAR UMA NOVA CLASSE COMO ESSA E ALTERAR SOMENTE AS VARIAVEIS CONSTANTES.*/
-@Entity
-@DiscriminatorValue("F")
+//@Entity
+//@DiscriminatorValue("F")
 public class CarFiat extends Car implements ICarModel {
 		
 	//CONSTANTES PARA ESSE CARRO.
