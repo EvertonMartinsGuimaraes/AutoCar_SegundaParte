@@ -9,6 +9,9 @@ public class CarController {
 	/*ALTERAR VEICULO NESSE METODO.
 	METODO CONSTRUTOR DO VEICULO.
 	*/
+	// @TODO fazer a seleção para escolher qual carro inicialiar.
+	// o valor deve vim como parametro no construtor.
+	// pode ser string ou inteiro.
 	public CarController() {
 		car = new CarFiat();
 
