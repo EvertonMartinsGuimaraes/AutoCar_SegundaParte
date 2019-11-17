@@ -14,5 +14,5 @@ public interface IPlaceOperations<Object> {
 	// listar todos
 	public List<Object> getAll();
 	// listar pelo id
-	public Object select();
+	public Object select(int id);
 }

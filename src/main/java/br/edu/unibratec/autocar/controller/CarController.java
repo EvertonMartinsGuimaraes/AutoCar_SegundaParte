@@ -1,57 +1,81 @@
 package br.edu.unibratec.autocar.controller;
 
-import br.edu.unibratec.autocar.model.Car;
-import br.edu.unibratec.autocar.model.CarFiat;
 
 import java.util.List;
-
 import br.edu.unibratec.autocar.DAO.CarDAO;
 import br.edu.unibratec.autocar.interfaces.ICarModel;
 import br.edu.unibratec.autocar.interfaces.ICarOperations;
+import br.edu.unibratec.autocar.model.Car;
+import br.edu.unibratec.autocar.model.CarFiat;
+import br.edu.unibratec.autocar.model.CarNissan;
+import br.edu.unibratec.autocar.model.CarVolkswagem;
 
-public class CarController implements ICarOperations<Car>{
+public class CarController implements ICarOperations<Car> {
 	private ICarModel car;
 	private CarDAO carDao;
+	private static CarController carInstance;
+	int id = 1;
 
-	/*ALTERAR VEICULO NESSE METODO.
-	METODO CONSTRUTOR DO VEICULO.
-	*/
-	// @TODO fazer a seleção para escolher qual carro inicialiar.
-	// o valor deve vim como parametro no construtor.
-	// pode ser string ou inteiro.
-	public CarController() {
-		this.car = new CarFiat();
+	public static CarController getInstance() {
+		if (carInstance == null) {
+			carInstance = new CarController();
+
+		}
+		return carInstance;
+	}
+
+	private CarController() {
+		this.car = new CarNissan();
 		this.carDao = new CarDAO();
 	}
 
-//METODO GET DE ACESSO AO OBJETO CARMODEL.
+	public CarController(int menu) {
+		switch (menu) {
+		case 1:
+			this.car = new CarFiat();
+			this.carDao = new CarDAO();
+			break;
+		case 2:
+			this.car = new CarVolkswagem();
+			this.carDao = new CarDAO();
+			break;
+		case 3:
+			this.car = new CarNissan();
+			this.carDao = new CarDAO();
+			break;
+		default:
+			System.out.println("Digite um valor correto para o menu.");
+		}
+	}
+
+	// METODO GET DE ACESSO AO OBJETO CARMODEL.
 	public ICarModel getCarModel() {
 		return this.car;
 	}
 
-	public void insert() {
-		// TODO Auto-generated method stub
-		this.carDao.insert((Car) this.car);
+	public void insert(Car car) {
+		if (car != null) {
+			this.carDao.insert(car);
+		}
+
 	}
 
 	public void delete(int id) {
-		// TODO Auto-generated method stub
-		
+		this.carDao.delete(id);
+
 	}
 
-	public void update(Car registro) {
-		// TODO Auto-generated method stub
-		
+	public void update(Car car) {
+		this.carDao.update(car);
+
 	}
 
 	public List<Car> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.carDao.getAll();
 	}
 
-	public Car select() {
-		// TODO Auto-generated method stub
-		return null;
+	public Car select(int id) {
+		return carDao.getWithId(id);
 	}
 
 }

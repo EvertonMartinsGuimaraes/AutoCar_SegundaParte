@@ -1,57 +1,76 @@
 package br.edu.unibratec.autocar.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
-//import org.hibernate.Session;
-//import org.hibernate.SessionFactory;
-//import org.hibernate.cfg.Configuration;
+import javax.management.Query;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import br.edu.unibratec.autocar.interfaces.ICarModel;
 import br.edu.unibratec.autocar.model.Car;
 
 public class CarDAO{
 	
-//	private SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	public CarDAO() {
 		// TODO Auto-generated constructor stub
-//		this.sessionFactory = new Configuration()
-//				.configure().buildSessionFactory();
+		this.sessionFactory = new Configuration().configure().buildSessionFactory();
 	}
 
 	public void insert(Car registro) {
 		// TODO Auto-generated method stub
-//		Session session = sessionFactory.openSession();
-//		session.beginTransaction();
-//		
-//		session.save(registro);
-//		session.getTransaction().commit();
-//		session.close();
+
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		session.save(registro);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	public void delete(int id) {
-		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		Car car = session.load(Car.class, id);
+		session.delete(car);		
+		session.getTransaction().commit();
+		session.close();
 		
 	}
 
-	public void update(ICarModel registro) {
-		// TODO Auto-generated method stub
+	public void update(Car car) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		session.saveOrUpdate(car);		
+		
+		session.getTransaction().commit();
+		session.close();
 		
 	}
 
 	public List<Car> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Car> result = new ArrayList<Car>();
+		Session session = sessionFactory.openSession();
+		result = session.createQuery("from Car").list();
+		session.close();
+		return result;
 	}
 
 	public Car getWithId(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void update(Car registro) {
-		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
 		
+		Car car = session.get(Car.class, id);
+		
+		session.getTransaction().commit();
+		session.close();
+		
+		return car;
 	}
 
 }

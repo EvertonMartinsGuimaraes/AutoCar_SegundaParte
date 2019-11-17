@@ -1,33 +1,54 @@
 package br.edu.unibratec.autocar.interfaces;
 
+import br.edu.unibratec.autocar.model.Car;
+
 //INTERFACE MODELO DOS CARROS A SEREM CRIADOS.
 public interface ICarModel {
 
-	public void setOilReduction(int kmDistance, double routeRate);
+	// METODOS DE CALCULO PARA RETORNAR UM POSSIVEL STATUS DO CARRO
+	public double OilReduction(int kmDistance, double routeRate);
 
-	public void setWaterReduction(int kmDistance, double routeRate);
+	public double WaterReduction(int kmDistance, double routeRate);
 
-	public void setGasReduction(int kmDistance, double routeRate);
+	public double GasReduction(int kmDistance, double routeRate);
 
-	public void setKmReduction(int kmDistance, double routeRate);
+	public int NewKm(int kmDistance, double routeRate);
+
+	public int KmForReview(int kmDistance);
+
+	public int NewReview();
 	
-	public void overhaul(int refillGas,int refillOil, int refillWatter);
-	
-	public void setKmForReview();
+	//METODO PARA ENCHER O TANQUE E NIVEIS DE AGUA E OLEO
+	public void overhaul(int refillGas, int refillOil, int refillWatter);
 
-	public void setNewReview();
+	// METODOS SET E GET DO CARRO JA SETADO APOS VIAGEM
 	
+	public void SetOilReduction();
+
+	public void SetWaterReduction();
+
+	public void SetGasReduction();
+
+	public void SetNewKm();
+
+	public void SetKmForReview();
+
+	public void SetNewReview();
+
 	public double getOilLevel();
-	
+
 	public double getGasLevel();
-	
+
 	public double getWaterLevel();
-	
+
 	public int getCurrentKm();
-	
+
 	public int getRemainingKm();
-	
+
 	public int getNextReview();
 	
-		
-	}
+	//retorna o Status completo do carro
+	public void carStatus(Car car);
+	
+	public void carTempStatus(int km, double routeRate);
+}

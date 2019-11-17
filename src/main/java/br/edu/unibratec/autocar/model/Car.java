@@ -1,23 +1,19 @@
 package br.edu.unibratec.autocar.model;
-//import javax.persistence.Column;
-//import javax.persistence.DiscriminatorColumn;
-//import javax.persistence.DiscriminatorType;
-//import javax.persistence.DiscriminatorValue;
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
-//import javax.persistence.Inheritance;
-//import javax.persistence.InheritanceType;
 
-//@Entity
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)	
-//@DiscriminatorColumn(name="carModel", length=1, discriminatorType = DiscriminatorType.CHAR)
-//@DiscriminatorValue("C")
+import java.util.Date;
+import java.text.DecimalFormat;
+import java.util.Calendar;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Car {
-	
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private double oilLevel;
 	private double waterLevel;
@@ -25,23 +21,37 @@ public class Car {
 	private int remainingKm;
 	private int nextReview;
 	private double gasLevel;
-//	@Column(insertable=false, updatable=false)
-	private char carModel;
-	
-	private double oilReductionRate, waterReductionRate, gasConsumptionRate;
-	private int eachReviewKm;
+	Date data;
+	@ManyToOne
+	private Place place;
 
 	public Car() {
 
 	}
-	
-	public Car(double oilLevel, double waterLevel, int currentKm, int remainingKm, double gasLevel, char carModel) {
+
+	public Car(double oilLevel, double waterLevel, int currentKm, int remainingKm, double gasLevel) {
+		this.data = (Date) Calendar.getInstance().getTime();
 		this.oilLevel = oilLevel;
 		this.waterLevel = waterLevel;
 		this.currentKm = currentKm;
 		this.remainingKm = remainingKm;
 		this.gasLevel = gasLevel;
-		this.carModel = carModel;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	public Place getPlace() {
+		return place;
+	}
+
+	public void setPlace(Place place) {
+		this.place = place;
 	}
 
 	public int getId() {
@@ -50,46 +60,6 @@ public class Car {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public char getCarModel() {
-		return carModel;
-	}
-
-	public void setCarModel(char carModel) {
-		this.carModel = carModel;
-	}
-
-	public double getOilReductionRate() {
-		return oilReductionRate;
-	}
-
-	public void setOilReductionRate(double oilReductionRate) {
-		this.oilReductionRate = oilReductionRate;
-	}
-
-	public double getWaterReductionRate() {
-		return waterReductionRate;
-	}
-
-	public void setWaterReductionRate(double waterReductionRate) {
-		this.waterReductionRate = waterReductionRate;
-	}
-
-	public double getGasConsumptionRate() {
-		return gasConsumptionRate;
-	}
-
-	public void setGasConsumptionRate(double gasConsumptionRate) {
-		this.gasConsumptionRate = gasConsumptionRate;
-	}
-
-	public int getEachReviewKm() {
-		return eachReviewKm;
-	}
-
-	public void setEachReviewKm(int eachReviewKm) {
-		this.eachReviewKm = eachReviewKm;
 	}
 
 	public double getOilLevel() {
@@ -140,4 +110,13 @@ public class Car {
 		this.nextReview = nextReview;
 	}
 
+	public void carStatus(Car car) {
+		DecimalFormat decimalFormat = new DecimalFormat("###,##0");
+		System.out.println("-------------------------------------------------------------------------------------------------------------------\n\nGasolina:"
+				+ decimalFormat.format(car.getGasLevel()) + " %\nKm atual: " + car.getCurrentKm()
+				+ " KM\nProxima revisao: " + car.getNextReview() + " KM\nOleo:"
+				+ decimalFormat.format(car.getOilLevel()) + " ML\nKm para proxima revisao: " + car.getRemainingKm()
+				+ " KM\nNivel da agua: " + decimalFormat.format(car.getWaterLevel()) + " ML\n\n");
+		
+	}
 }

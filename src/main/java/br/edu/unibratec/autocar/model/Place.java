@@ -1,29 +1,30 @@
 package br.edu.unibratec.autocar.model;
 
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-//@Entity
+@Entity
 public class Place {
-//	@Id
-//	@GeneratedValue (strategy = GenerationType.AUTO)
+	@Id
 	private int id;
 	private String name;
 	private ROUTE_TYPE route;
 	private int distance;
 
-	public Place(String name, ROUTE_TYPE route, int distance) {
-		this.name = name;
-		this.route = route;
+	public Place() {
+	}
+
+	public Place(int id,String name, ROUTE_TYPE route, int distance) {
+		this.setId(id);
+		this.setName(name);
+		this.setRoute(route);
 		this.setDistance(distance);
 	}
 
 	public static enum ROUTE_TYPE {
-	ROADWAY, URBAN
+		ROADWAY, URBAN
 	}
-	
+
 	public String getName() {
 		return name;
 	}
