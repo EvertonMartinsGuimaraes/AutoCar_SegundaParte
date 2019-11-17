@@ -1,0 +1,10 @@
+/*C1*/SET SCHEMA SYSTEM_LOBS
+INSERT INTO BLOCKS VALUES(0,2147483647,0)
+COMMIT
+/*C2*/SET SCHEMA PUBLIC
+drop table if exists Car CASCADE 
+drop table if exists Place CASCADE 
+drop sequence hibernate_sequence if exists
+create sequence hibernate_sequence start with 1 increment by 1
+create table Car (id integer not null, currentKm integer not null, gasLevel double not null, nextReview integer not null, oilLevel double not null, remainingKm integer not null, waterLevel double not null, primary key (id))
+create table Place (id integer not null, distance integer not null, name varchar(255), route integer, primary key (id))
