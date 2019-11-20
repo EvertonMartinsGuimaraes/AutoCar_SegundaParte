@@ -2,11 +2,13 @@ package br.edu.unibratec.autocar.view;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceException;
 
-import br.edu.unibratec.autocar.facade.AutoCarFacade;
+import br.edu.unibratec.autocar.controller.OperacoesFacade;
 import br.edu.unibratec.autocar.interfaces.ICarModel;
 import br.edu.unibratec.autocar.model.Car;
 import br.edu.unibratec.autocar.model.Place;
@@ -20,8 +22,8 @@ public class TripView {
 
 	Scanner input = new Scanner(System.in);
 	DecimalFormat decimalFormat = new DecimalFormat("###,##0");
-	AutoCarFacade facade = AutoCarFacade.getInstancia();
-	ICarModel carModel = facade.getCarModel();
+	OperacoesFacade facade;
+	ICarModel carModel;
 
 	public static TripView getInstance() {
 		if (tripInstance == null) {
@@ -40,15 +42,28 @@ public class TripView {
 	}
 
 	// LAÇO PARA O MENU CONTINUAR ENQUANTO OPÇÃO PLACE DIFERENTE DE 0 = SAIR
-	public void generalMenu() {
+	public void generalMenu() throws InterruptedException {
 		int place = -1;
+
+		// INICIALIZANDO CARRO ESCOLHIDO
+		System.out.println("Primeiro acesso, qual carro deseja utilizar? 1-Fiat | 2- Volkswagen | 3-Nissan");
+		int selectCar = Integer.parseInt(input.nextLine());
+		selectCar = Imagens.getInstance().thirdImage(selectCar);
+		Thread.sleep(2000);
+		for (int i = 0; i < 400; ++i)
+			System.out.println();
+		facade = OperacoesFacade.getInstancia(selectCar);
+		carModel = facade.getCarModel();
+
+		// ADICIONANDO OS LUGARES AO ARRAY -TRIPCONTROLLER-
+		facade.addInitialPlaces();
 
 		// INSERINDO O PRIMEIRO CARRO PADRAO NO BANCO.
 		Car carro = (Car) carModel;
 		carro.setPlace(facade.selectPlace(0));
 		facade.insertCar(carro);
 		// MOSTRANDO NO PAINEL O STATUS DO CARRO
-		facade.carStatus();
+		facade.carStatus(selectCar);
 
 		for (; place != 0;) {
 			try {
@@ -56,7 +71,7 @@ public class TripView {
 				menu = Integer.parseInt(input.next());
 				switch (menu) {
 				case 1:
-					routeMenu(place);
+					routeMenu(place, selectCar);
 					break;
 				case 2:
 					destinationsMenu();
@@ -77,7 +92,7 @@ public class TripView {
 	}
 
 	// METODO PARA MENU DE ROTA
-	public void routeMenu(int place) {
+	public void routeMenu(int place, int selectCar) {
 		i = 0;
 		int rota = -1;
 
@@ -104,7 +119,7 @@ public class TripView {
 
 				// METODO DE CONFIRMAÇÃO DE ROTA - TRIPCONTROLLER -
 				if (rota != 0)
-					routeConfirmation(rota);
+					routeConfirmation(rota, selectCar);
 
 				// TRATAMENTO DE ERROS
 			} catch (NullPointerException e) {
@@ -141,15 +156,23 @@ public class TripView {
 							System.out.println("      " + (car.getId() - 1) + "      |     "
 									+ decimalFormat.format(car.getGasLevel()) + "%      |       " + car.getCurrentKm()
 									+ "KM      |    " + decimalFormat.format(car.getOilLevel()) + "ML      |      "
-									+ decimalFormat.format(car.getWaterLevel()) + "ML      |   "
-									+car.getData()+"     |"+ car.getPlace().getName());
+									+ decimalFormat.format(car.getWaterLevel()) + "ML      |   " + car.getData()
+									+ "     |" + car.getPlace().getName());
 						}
 					}
 					break;
 				case 2:
-					System.out.println("Qual ID da rota que deseja excluir do sistema?");
-					int id = Integer.parseInt(input.next());
+					System.out.println("Qual ID da rota que deseja excluir do sistema? Caso tenha escolhido opção errada, digite um valor que nao corresponde a nenhum valor na lista.\n\n  Digite 't' - Para excluir todo o historico.");
+					String idTemp = input.next();
+					
+					if (idTemp.equalsIgnoreCase("t")){
+						facade.deleteAllCar();
+						System.out.println("Historico limpo.");
+					} else {
+					int id = Integer.parseInt(idTemp);
 					facade.deleteCar(id + 1);
+					System.out.println("Rota deletada com sucesso.");
+					}
 					break;
 				default:
 					System.out.println("Digite um valor corrrespondente ao menu.");
@@ -160,6 +183,7 @@ public class TripView {
 				System.out.println("Digite um ID valido.");
 			}
 		}
+
 	}
 
 	// METODO PARA MENU DE DESTINOS
@@ -178,13 +202,26 @@ public class TripView {
 					break;
 				case 1:
 					System.out.println("Digite um nome para o destino.");
-					String name = input.next();
+
 					int routeConfirm = (int) (1 + (Math.random() * 2));
-					facade.insertNewPlace(routeConfirm, name);
+					String name = input.next();
+					if (name.length() >= 5) {
+						Pattern pattern = Pattern.compile("[0-9]");
+						Matcher match = pattern.matcher(name);
+						if (match.find()) {
+							System.out.println("Somente letras.");
+						} else {
+							facade.insertNewPlace(routeConfirm, name);
+							System.out.println("O lugar '" + name + "' foi adicionado.");
+						}
+					} else {
+						System.out.println("O nome do lugar deve conter no minimo 5 caracteres.");
+
+					}
 					break;
-				// TODO
 				case 2:
-					System.out.println("Qual lugar pelo id você deseja excluir?");
+					System.out.println(
+							"Qual lugar pelo id você deseja excluir? Caso tenha escolhido opção errada, digite um valor que nao corresponde a nenhum valor na lista.");
 					int id = Integer.parseInt(input.next());
 					if (id != 0) {
 						facade.deletePlace(id);
@@ -199,10 +236,10 @@ public class TripView {
 						if (places.getId() != 0) {
 							if (places.getRoute() == ROUTE_TYPE.ROADWAY) {
 								System.out.println(places.getId() + "- " + places.getName()
-										+ "-  Trecho: Rodovia  -  Distancia: " + places.getDistance() + "KM");
+										+ " -  Trecho: Rodovia  -  Distancia: " + places.getDistance() + "KM");
 							} else {
 								System.out.println(places.getId() + "- " + places.getName()
-										+ "-  Trecho: Urbano  -  Distancia: " + places.getDistance() + "KM");
+										+ " -  Trecho: Urbano  -  Distancia: " + places.getDistance() + "KM");
 							}
 						}
 					}
@@ -215,7 +252,7 @@ public class TripView {
 				System.out.println("Digite um valor correspondente ao menu.");
 			} catch (EntityNotFoundException e) {
 				System.out.println("Digite um ID valido.");
-			}catch (PersistenceException e) {
+			} catch (PersistenceException e) {
 				System.out.println("Nao é possivel deletar um lugar ja visitado antes de deleta-lo em seu historico.");
 			}
 		}
@@ -224,7 +261,7 @@ public class TripView {
 	// APOS PEGAR O LOCAL QUE O USUARIO QUER IR ELE PEGA O NOME, DISTANCIA E TAXA DA
 	// ROTA E VERIFICA CONDICOES.
 	// SE POSSUIR GASOLINA SUFICIENTE EXECUTA O CODIGO
-	public void routeConfirmation(int place) {
+	public void routeConfirmation(int place, int selectCar) {
 		int confirm = 0;
 		int confirm2 = 0;
 		try {
@@ -234,14 +271,15 @@ public class TripView {
 						.println("Deseja realmente ir a " + facade.selectPlace(place).getName() + "?  1-SIM / 2-NÂO\n");
 
 				// CHAMA METODO DE CALCULO E STATUS DE UMA POSSIVEL CORRIDA
-				facade.calcTrack(facade.selectPlace(place).getDistance(), facade.selectPlace(place).getRoute());
+				facade.calcTrack(facade.selectPlace(place).getDistance(), facade.selectPlace(place).getRoute(),
+						selectCar);
 
 				confirm = Integer.parseInt(input.next());
 				if (confirm == 1) {
 					// CASO CONFIRMADO ELE SETA OS VALORES E EXIBE O STATUS DO CARRO ALTERADO.
 					tripStatus(place);
-					facade.setTrack(facade.selectPlace(place));
-					facade.carStatus();
+					facade.setTrack(facade.selectPlace(place), selectCar);
+					facade.carStatus(selectCar);
 				} else {
 					System.out.println(
 							"\nViagem cancelada.\n\n-------------------------------------------------------------------------");
@@ -256,8 +294,8 @@ public class TripView {
 				// CASO ABASTEÇA ELE ENCHE NIVEIS DE AGUA E OLEO E MOSTRA NOVAMENTE O STATUS DO
 				// CARRO.
 				if (confirm2 == 1) {
-					facade.fuel();
-					facade.carStatus();
+					facade.fuel(selectCar);
+					facade.carStatus(selectCar);
 				} else {
 					place = 0;
 				}

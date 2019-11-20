@@ -38,7 +38,6 @@ public class PlaceDAO implements IPlaceOperations<Place> {
 		
 		session.getTransaction().commit();
 		session.close();
-
 	}
 
 	public void update(Place place) {

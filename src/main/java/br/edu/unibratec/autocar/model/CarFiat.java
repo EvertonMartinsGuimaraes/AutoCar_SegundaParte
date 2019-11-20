@@ -10,7 +10,7 @@ EM CASO DE NOVO CARRO SÓ É NECESSARIO CRIAR UMA NOVA CLASSE COMO ESSA E ALTERAR 
 public class CarFiat extends Car implements ICarModel {
 
 	// CONSTANTES PARA ESSE CARRO.
-	private static final double oilReductionRate = 0.03, waterReductionRate = 0.02, gasConsumptionRate = 5;
+	private static final double oilReductionRate = 0.03, waterReductionRate = 0.02, gasConsumptionRate = 7;
 	private static final int eachReviewKm = 4000;
 	int newKm = 0;
 	private double newOilLevel = 1000;

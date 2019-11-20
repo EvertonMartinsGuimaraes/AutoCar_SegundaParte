@@ -1,56 +1,51 @@
-package br.edu.unibratec.autocar.facade;
+package br.edu.unibratec.autocar.controller;
 
 import java.util.List;
 
-import br.edu.unibratec.autocar.controller.CarController;
-import br.edu.unibratec.autocar.controller.PlaceController;
-import br.edu.unibratec.autocar.controller.TripController;
 import br.edu.unibratec.autocar.interfaces.ICarModel;
 import br.edu.unibratec.autocar.model.Car;
 import br.edu.unibratec.autocar.model.Place;
 import br.edu.unibratec.autocar.model.Place.ROUTE_TYPE;
 
-public class AutoCarFacade {
-
-	private static AutoCarFacade instancia;
+public class OperacoesFacade {
+	private static OperacoesFacade instancia;
 	private static PlaceController placeController;
 	private static CarController carController;
 	private static TripController tripInstance;
 
-	private AutoCarFacade() {
+	private OperacoesFacade() {
 	}
 
-	public static AutoCarFacade getInstancia() {
+	public static OperacoesFacade getInstancia(int selectCar) {
 		if (instancia == null) {
-			instancia = new AutoCarFacade();
+			instancia = new OperacoesFacade();
 			placeController = PlaceController.getInstance();
-			carController = CarController.getInstance();
 			tripInstance = TripController.getInstance();
-
+			carController = CarController.getInstance(selectCar);
 		}
-
 		return instancia;
 	}
 
 	// TRIP CONTROLLER
-	public void carStatus() {
-		tripInstance.carStatus();
+	public void carStatus(int selectCar) {
+		tripInstance.carStatus(selectCar);
 	}
 
-	public void setTrack(Place place) {
-		tripInstance.setTrack(place);
-
-	}
-
-	public void calcTrack(int km, ROUTE_TYPE type) {
-		tripInstance.calcTrack(km, type);
+	public void setTrack(Place place, int selectCar) {
+		tripInstance.setTrack(place, selectCar);
 
 	}
 
-	public void fuel() {
-		tripInstance.fuel();
+	public void calcTrack(int km, ROUTE_TYPE type, int selectCar) {
+		tripInstance.calcTrack(km, type, selectCar);
 
 	}
+
+	public void fuel(int selectCar) {
+		tripInstance.fuel(selectCar);
+
+	}
+
 	// CAR CONTROLLER
 	public ICarModel getCarModel() {
 		return carController.getCarModel();
@@ -63,6 +58,14 @@ public class AutoCarFacade {
 	public void deleteCar(int id) {
 		carController.delete(id);
 	}
+	
+	public void deleteAllCar() {
+		for (Car car : getAllCar()) {
+			if(car.getId()>0)
+			carController.delete(car.getId());
+		}
+	}
+
 	public void updateCar(Car car) {
 		carController.update(car);
 
@@ -113,11 +116,18 @@ public class AutoCarFacade {
 		if (id != 0) {
 			placeController.delete(id);
 		}
+		int idTemp = id;
 		for (Place place : getPlacesList()) {
 			if (place.getId() > id) {
 				place.setId(id);
 				updatePlace(place);
 				id++;
+			}
+		}
+		for (Car car : getAllCar()) {
+			if (car.getPlace().getId() > idTemp) {
+				car.setPlace(selectPlace(car.getPlace().getId() - 1));
+				updateCar(car);
 			}
 		}
 		placeController.delete(id);

@@ -14,7 +14,7 @@ import br.edu.unibratec.autocar.interfaces.ICarModel;
 public class CarNissan extends Car implements ICarModel {
 
 	// CONSTANTES PARA ESSE CARRO.
-	private static final double oilReductionRate = 0.03, waterReductionRate = 0.02, gasConsumptionRate = 5;
+	private static final double oilReductionRate = 0.04, waterReductionRate = 0.03, gasConsumptionRate = 5;
 	private static final int eachReviewKm = 5000;
 	int newKm = 0;
 	private double newOilLevel = 1000;

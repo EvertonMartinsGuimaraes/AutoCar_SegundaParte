@@ -16,21 +16,16 @@ public class CarController implements ICarOperations<Car> {
 	private static CarController carInstance;
 	int id = 1;
 
-	public static CarController getInstance() {
+	public static CarController getInstance(int selectCar) {
 		if (carInstance == null) {
-			carInstance = new CarController();
+			carInstance = new CarController(selectCar);
 
 		}
 		return carInstance;
 	}
 
-	private CarController() {
-		this.car = new CarNissan();
-		this.carDao = new CarDAO();
-	}
-
-	public CarController(int menu) {
-		switch (menu) {
+	public CarController(int selectCar) {
+		switch (selectCar) {
 		case 1:
 			this.car = new CarFiat();
 			this.carDao = new CarDAO();

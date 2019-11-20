@@ -26,7 +26,7 @@ public class PlaceController implements IPlaceOperations<Place> {
 
 	// METODO PARA ADICIONAR LUGARES NO ARRAY
 	public void addInitialPlaces() {
-		insertNewPlace(0,"Posto Gasolina", ROUTE_TYPE.ROADWAY, 0);
+		insertNewPlace(0,"Posto Gasolina", ROUTE_TYPE.ROADWAY, 10);
 		insertNewPlace(1,"Porto de galinhas", ROUTE_TYPE.ROADWAY, 100);
 		insertNewPlace(2,"Shopping Tacaruna", ROUTE_TYPE.URBAN, 40);
 		insertNewPlace(3,"Maria farinha", ROUTE_TYPE.URBAN, 100);
