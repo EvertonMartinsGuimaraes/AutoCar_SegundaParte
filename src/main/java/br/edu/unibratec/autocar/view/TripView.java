@@ -17,7 +17,6 @@ import br.edu.unibratec.autocar.view.TripView;
 
 public class TripView {
 	int menu = 1;
-	int i;
 	private static TripView tripInstance;
 
 	Scanner input = new Scanner(System.in);
@@ -34,21 +33,28 @@ public class TripView {
 	}
 
 	// MOSTRA O STATUS DA VIAGEM FEITA
-	public void tripStatus(int id) {
+	public void tripStatus(int IdPlace) {
 
-		System.out.println("\n\nViagem feita para: " + facade.selectPlace(id).getName() + " / Distancia percorrida: "
-				+ facade.selectPlace(id).getDistance()
+		System.out.println("\n\nViagem feita para: " + facade.selectPlace(IdPlace).getName()
+				+ " / Distancia percorrida: " + facade.selectPlace(IdPlace).getDistance()
 				+ "KM\n\n--------------------------------------------------------------------------------------------------------------------");
 	}
 
 	// LAÇO PARA O MENU CONTINUAR ENQUANTO OPÇÃO PLACE DIFERENTE DE 0 = SAIR
 	public void generalMenu() throws InterruptedException {
-		int place = -1;
-
+		int IdPlace = -1;
+		int selectCar = -1;
 		// INICIALIZANDO CARRO ESCOLHIDO
-		System.out.println("Primeiro acesso, qual carro deseja utilizar? 1-Fiat | 2- Volkswagen | 3-Nissan");
-		int selectCar = Integer.parseInt(input.nextLine());
-		selectCar = Imagens.getInstance().thirdImage(selectCar);
+		for (; selectCar < 0;) {
+			try {
+				System.out.println("Primeiro acesso, qual carro deseja utilizar? 1-Fiat | 2- Volkswagen | 3-Nissan");
+				selectCar = Integer.parseInt(input.nextLine());
+				selectCar = Imagens.getInstance().thirdImage(selectCar);
+			} catch (NumberFormatException e) {
+				System.out.println("Opção invalida. Somente numeros.\n\n");
+			}
+		}
+
 		Thread.sleep(2000);
 		for (int i = 0; i < 400; ++i)
 			System.out.println();
@@ -65,19 +71,23 @@ public class TripView {
 		// MOSTRANDO NO PAINEL O STATUS DO CARRO
 		System.out.println(facade.carStatus(selectCar));
 
-		for (; place != 0;) {
+		for (; IdPlace != 0;) {
 			try {
-				System.out.println("\n\n\n\n\n\nO que deseja fazer? 1 - Rota / 2 - Destinos / 3- Historico ");
+				System.out
+						.println("\n\n\n\n\n\nO que deseja fazer? 1 - Rota / 2 - Destinos / 3- Historico / 0 - SAIR ");
 				menu = Integer.parseInt(input.next());
 				switch (menu) {
 				case 1:
-					routeMenu(place, selectCar);
+					routeMenu(selectCar);
 					break;
 				case 2:
 					destinationsMenu();
 					break;
 				case 3:
 					historyMenu();
+					break;
+				case 0:
+					IdPlace = 0;
 					break;
 				default:
 					System.out.println("Digite um valor correspondente ao menu.");
@@ -92,11 +102,9 @@ public class TripView {
 	}
 
 	// METODO PARA MENU DE ROTA
-	public void routeMenu(int place, int selectCar) {
-		i = 0;
-		int rota = -1;
-
-		for (; rota != 0;) {
+	public void routeMenu(int selectCar) {
+		int IdPlace = -1;
+		for (; IdPlace != 0;) {
 			System.out.println("\n\n\n--------------------------MENU DE ROTAS ------------------------------\n\n\n");
 			try {
 				// FOREACH PARA VISUALIZAÇÃO DOS LUGARES INSERIDOS NO BANCO
@@ -115,11 +123,11 @@ public class TripView {
 				// INICIO DO MENU DE ROTAS
 				System.out.println(
 						"\n\n\nOlá, como está hoje? Qual local você quer ir? Digite o numero correspondente ao local. 0 - SAIR");
-				rota = Integer.parseInt(input.next());
+				IdPlace = Integer.parseInt(input.next());
 
 				// METODO DE CONFIRMAÇÃO DE ROTA - TRIPCONTROLLER -
-				if (rota != 0)
-					routeConfirmation(rota, selectCar);
+				if (IdPlace != 0)
+					routeConfirmation(IdPlace, selectCar);
 
 				// TRATAMENTO DE ERROS
 			} catch (NullPointerException e) {
@@ -134,15 +142,15 @@ public class TripView {
 
 	// METODO PARA MENU DE HISTORICO
 	public void historyMenu() {
-		int history = -1;
-		for (; history != 0;) {
+		int historyMenu = -1;
+		for (; historyMenu != 0;) {
 			try {
 				System.out.println(
 						"\n\n\n--------------------------MENU DE HISTORICO ------------------------------\n\n\n");
 				System.out.println(
 						"O que deseja fazer? \n1- Listar todo historico de rotas feitas.\n2- Excluir um historico pelo ID.\n0 - SAIR");
-				history = Integer.parseInt(input.next());
-				switch (history) {
+				historyMenu = Integer.parseInt(input.next());
+				switch (historyMenu) {
 				case 0:
 					break;
 				case 1:
@@ -162,16 +170,17 @@ public class TripView {
 					}
 					break;
 				case 2:
-					System.out.println("Qual ID da rota que deseja excluir do sistema? Caso tenha escolhido opção errada, digite um valor que nao corresponde a nenhum valor na lista.\n\n  Digite 't' - Para excluir todo o historico.");
-					String idTemp = input.next();
-					
-					if (idTemp.equalsIgnoreCase("t")){
+					System.out.println(
+							"Qual ID da rota que deseja excluir do sistema? Caso tenha escolhido opção errada, digite um valor que nao corresponde a nenhum valor na lista.\n\n  Digite 't' - Para excluir todo o historico.");
+					String historyRemove = input.next();
+
+					if (historyRemove.equalsIgnoreCase("t")) {
 						facade.deleteAllCar();
 						System.out.println("Historico limpo.");
 					} else {
-					int id = Integer.parseInt(idTemp);
-					facade.deleteCar(id + 1);
-					System.out.println("Rota deletada com sucesso.");
+						int IdHistoryRemove = Integer.parseInt(historyRemove) + 1;
+						facade.deleteCar(IdHistoryRemove);
+						System.out.println("Rota deletada com sucesso.");
 					}
 					break;
 				default:
@@ -188,16 +197,16 @@ public class TripView {
 
 	// METODO PARA MENU DE DESTINOS
 	public void destinationsMenu() {
-		int destination = -1;
+		int destinationMenu = -1;
 
-		for (; destination != 0;) {
+		for (; destinationMenu != 0;) {
 			try {
 				System.out.println(
 						"\n\n\n--------------------------MENU DE DESTINOS ------------------------------\n\n\n");
 				System.out.println(
 						"O que deseja fazer? \n1- Adicionar um novo destino.\n2- Excluir um destino pelo numero de ID.\n3- Lista de destinos. \n0 - SAIR");
-				destination = Integer.parseInt(input.next());
-				switch (destination) {
+				destinationMenu = Integer.parseInt(input.next());
+				switch (destinationMenu) {
 				case 0:
 					break;
 				case 1:
@@ -222,9 +231,9 @@ public class TripView {
 				case 2:
 					System.out.println(
 							"Qual lugar pelo id você deseja excluir? Caso tenha escolhido opção errada, digite um valor que nao corresponde a nenhum valor na lista.");
-					int id = Integer.parseInt(input.next());
-					if (id != 0) {
-						facade.deletePlace(id);
+					int IdDestinationRemove = Integer.parseInt(input.next());
+					if (IdDestinationRemove != 0) {
+						facade.deletePlace(IdDestinationRemove);
 						System.out.println("Lugar deletado com sucesso.");
 					} else
 						System.out.println("Digite um ID valido.");
@@ -261,23 +270,23 @@ public class TripView {
 	// APOS PEGAR O LOCAL QUE O USUARIO QUER IR ELE PEGA O NOME, DISTANCIA E TAXA DA
 	// ROTA E VERIFICA CONDICOES.
 	// SE POSSUIR GASOLINA SUFICIENTE EXECUTA O CODIGO
-	public void routeConfirmation(int place, int selectCar) {
+	public void routeConfirmation(int IdPlace, int selectCar) {
 		int confirm = 0;
 		int confirm2 = 0;
 		try {
-			if (place != 0 && carModel.getGasLevel() > 25) {
+			if (IdPlace != 0 && carModel.getGasLevel() > 25) {
 
-				System.out
-						.println("Deseja realmente ir a " + facade.selectPlace(place).getName() + "?  1-SIM / 2-NÂO\n");
+				System.out.println(
+						"Deseja realmente ir a " + facade.selectPlace(IdPlace).getName() + "?  1-SIM / 2-NÂO\n");
 
 				// CHAMA METODO DE CALCULO E STATUS DE UMA POSSIVEL CORRIDA
-				System.out.println(facade.calcTrack(place,selectCar));
+				System.out.println(facade.calcTrack(IdPlace, selectCar));
 
 				confirm = Integer.parseInt(input.next());
 				if (confirm == 1) {
 					// CASO CONFIRMADO ELE SETA OS VALORES E EXIBE O STATUS DO CARRO ALTERADO.
-					tripStatus(place);
-					facade.setTrack(facade.selectPlace(place), selectCar);
+					tripStatus(IdPlace);
+					facade.setTrack(facade.selectPlace(IdPlace), selectCar);
 					facade.carStatus(selectCar);
 				} else {
 					System.out.println(
@@ -296,7 +305,7 @@ public class TripView {
 					facade.fuel(selectCar);
 					facade.carStatus(selectCar);
 				} else {
-					place = 0;
+					IdPlace = 0;
 				}
 			}
 		} catch (NumberFormatException e) {

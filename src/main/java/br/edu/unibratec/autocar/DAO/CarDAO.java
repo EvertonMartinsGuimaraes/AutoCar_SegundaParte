@@ -20,13 +20,13 @@ public class CarDAO{
 		this.sessionFactory = new Configuration().configure().buildSessionFactory();
 	}
 
-	public void insert(Car registro) {
+	public void insert(Car car) {
 		// TODO Auto-generated method stub
 
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		session.save(registro);
+		session.save(car);
 		session.getTransaction().commit();
 		session.close();
 	}

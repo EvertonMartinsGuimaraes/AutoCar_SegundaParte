@@ -47,8 +47,5 @@ public interface ICarModel {
 
 	public int getNextReview();
 	
-	//retorna o Status completo do carro
-	public String carStatus(Car car);
-	
 	public String carTempStatus(int km, double routeRate);
 }

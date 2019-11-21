@@ -20,6 +20,7 @@ public class VehicleFront {
 
 		// CASO OPÇÃO PLACE SEJA IGUAL A 0 = SAIR.
 		System.out.println("Obrigado por utilizar o computador de bordo.");
+		System.exit(0);
 		input.close();
 
 	}

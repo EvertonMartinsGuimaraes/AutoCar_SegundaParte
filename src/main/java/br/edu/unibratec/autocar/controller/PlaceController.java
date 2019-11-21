@@ -32,8 +32,8 @@ public class PlaceController implements IPlaceOperations<Place> {
 		insertNewPlace(3,"Maria farinha", ROUTE_TYPE.URBAN, 100);
 	}
 
-	public void insert(Place registre) {
-		placeDao.insert(registre);
+	public void insert(Place place) {
+		placeDao.insert(place);
 	}
 	
 	public void insertNewPlace(int id, String name, ROUTE_TYPE route, int distance) {

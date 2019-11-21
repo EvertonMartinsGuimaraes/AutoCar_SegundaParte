@@ -36,10 +36,10 @@ public class OperacoesFacade {
 
 	}
 
-	public String calcTrack(int place,int selectCar) {
+	public String calcTrack(int IdPlace,int selectCar) {
 //		facade.selectPlace(place).getDistance(), facade.selectPlace(place).getRoute(),
 //		selectCar
-		return tripInstance.calcTrack(this.selectPlace(place).getDistance(), this.selectPlace(place).getRoute(), selectCar);
+		return tripInstance.calcTrack(this.selectPlace(IdPlace).getDistance(), this.selectPlace(IdPlace).getRoute(), selectCar);
 
 	}
 
