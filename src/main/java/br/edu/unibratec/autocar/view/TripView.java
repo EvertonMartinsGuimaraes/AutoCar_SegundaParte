@@ -98,7 +98,6 @@ public class TripView {
 				System.out.println("Digite um ID valido.");
 			}
 		}
-
 	}
 
 	// METODO PARA MENU DE ROTA
@@ -206,6 +205,7 @@ public class TripView {
 				System.out.println(
 						"O que deseja fazer? \n1- Adicionar um novo destino.\n2- Excluir um destino pelo numero de ID.\n3- Lista de destinos. \n0 - SAIR");
 				destinationMenu = Integer.parseInt(input.next());
+				input.nextLine();
 				switch (destinationMenu) {
 				case 0:
 					break;
@@ -213,18 +213,19 @@ public class TripView {
 					System.out.println("Digite um nome para o destino.");
 
 					int routeConfirm = (int) (1 + (Math.random() * 2));
-					String name = input.next();
-					if (name.length() >= 5) {
+					String name = input.nextLine();
+					if (name.length() >= 5 && name.length()<=15) {
 						Pattern pattern = Pattern.compile("[0-9]");
 						Matcher match = pattern.matcher(name);
 						if (match.find()) {
 							System.out.println("Somente letras.");
 						} else {
+							
 							facade.insertNewPlace(routeConfirm, name);
 							System.out.println("O lugar '" + name + "' foi adicionado.");
 						}
 					} else {
-						System.out.println("O nome do lugar deve conter no minimo 5 caracteres.");
+						System.out.println("O nome do lugar deve conter no minimo 5 caracteres e no maximo 15.");
 
 					}
 					break;
