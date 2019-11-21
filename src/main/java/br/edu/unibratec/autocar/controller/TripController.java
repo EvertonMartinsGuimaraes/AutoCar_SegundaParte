@@ -21,13 +21,13 @@ public class TripController {
 	}
 
 	// MOSTRA O STATUS DO CARRO APOS UMA VIAGEM.
-	public void carStatus(int selectCar) {
+	public String carStatus(int selectCar) {
 		Car car = CarController.getInstance(selectCar).select(id);
-		car.carStatus(car);
+		return car.carStatus();
 	}
 
 	// FAZ OS CALCULOS DE UMA POSSIVEL ROTA
-	public void calcTrack(int km, ROUTE_TYPE type, int selectCar) {
+	public String calcTrack(int km, ROUTE_TYPE type, int selectCar) {
 		double routeRate = 0;
 
 		if (type == ROUTE_TYPE.URBAN) {
@@ -37,7 +37,7 @@ public class TripController {
 			routeRate = 0.98;
 		}
 
-		CarController.getInstance(selectCar).getCarModel().carTempStatus(km, routeRate);
+		return CarController.getInstance(selectCar).getCarModel().carTempStatus(km, routeRate);
 
 	}
 

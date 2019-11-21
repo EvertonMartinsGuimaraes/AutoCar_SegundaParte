@@ -27,8 +27,8 @@ public class OperacoesFacade {
 	}
 
 	// TRIP CONTROLLER
-	public void carStatus(int selectCar) {
-		tripInstance.carStatus(selectCar);
+	public String carStatus(int selectCar) {
+		return tripInstance.carStatus(selectCar);
 	}
 
 	public void setTrack(Place place, int selectCar) {
@@ -36,8 +36,10 @@ public class OperacoesFacade {
 
 	}
 
-	public void calcTrack(int km, ROUTE_TYPE type, int selectCar) {
-		tripInstance.calcTrack(km, type, selectCar);
+	public String calcTrack(int place,int selectCar) {
+//		facade.selectPlace(place).getDistance(), facade.selectPlace(place).getRoute(),
+//		selectCar
+		return tripInstance.calcTrack(this.selectPlace(place).getDistance(), this.selectPlace(place).getRoute(), selectCar);
 
 	}
 

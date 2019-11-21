@@ -153,26 +153,37 @@ public class CarVolkswagem extends Car implements ICarModel {
 		super.setNextReview(newNextReview);
 	}
 
-	public void carStatus(Car car) {
+	public String carStatus(Car car) {
 
 		DecimalFormat decimalFormat = new DecimalFormat("###,##0");
-		System.out.println(
-				"-------------------------------------------------------------------------------------------------------------------\n\nGasolina:"
-						+ decimalFormat.format(car.getGasLevel()) + " %\nKm atual: " + car.getCurrentKm()
-						+ " KM\nProxima revisao: " + car.getNextReview() + " KM\nOleo:"
-						+ decimalFormat.format(car.getOilLevel()) + " ML\nKm para proxima revisao: "
-						+ car.getRemainingKm() + " KM\nNivel da agua: " + decimalFormat.format(car.getWaterLevel())
-						+ " ML\n\n");
+//		System.out.println(
+//				"-------------------------------------------------------------------------------------------------------------------\n\nGasolina:"
+//						+ decimalFormat.format(car.getGasLevel()) + " %\nKm atual: " + car.getCurrentKm()
+//						+ " KM\nProxima revisao: " + car.getNextReview() + " KM\nOleo:"
+//						+ decimalFormat.format(car.getOilLevel()) + " ML\nKm para proxima revisao: "
+//						+ car.getRemainingKm() + " KM\nNivel da agua: " + decimalFormat.format(car.getWaterLevel())
+//						+ " ML\n\n");
+		return "-------------------------------------------------------------------------------------------------------------------\n\nGasolina:"
+		+ decimalFormat.format(car.getGasLevel()) + " %\nKm atual: " + car.getCurrentKm()
+		+ " KM\nProxima revisao: " + car.getNextReview() + " KM\nOleo:"
+		+ decimalFormat.format(car.getOilLevel()) + " ML\nKm para proxima revisao: "
+		+ car.getRemainingKm() + " KM\nNivel da agua: " + decimalFormat.format(car.getWaterLevel())
+		+ " ML\n\n";
 
 	}
 
-	public void carTempStatus(int km, double routeRate) {
+	public String carTempStatus(int km, double routeRate) {
 
 		DecimalFormat decimalFormat = new DecimalFormat("###,##0");
-		System.out.println("\nGastos Previstos:\n\n\nGasolina:" + decimalFormat.format(GasReduction(km, routeRate))
-				+ " %\nQuilometragem: " + NewKm(km, routeRate) + " KM\nProxima revisao: " + NewReview() + " KM\nOleo:"
-				+ decimalFormat.format(OilReduction(km, routeRate)) + " ML\nKm para proxima revisao: " + KmForReview(km)
-				+ " KM\nNivel da agua: " + decimalFormat.format(WaterReduction(km, routeRate)) + " ML\n\n");
+//		System.out.println("\nGastos Previstos:\n\n\nGasolina:" + decimalFormat.format(GasReduction(km, routeRate))
+//				+ " %\nQuilometragem: " + NewKm(km, routeRate) + " KM\nProxima revisao: " + NewReview() + " KM\nOleo:"
+//				+ decimalFormat.format(OilReduction(km, routeRate)) + " ML\nKm para proxima revisao: " + KmForReview(km)
+//				+ " KM\nNivel da agua: " + decimalFormat.format(WaterReduction(km, routeRate)) + " ML\n\n");
+		
+		return "\nGastos Previstos:\n\n\nGasolina:" + decimalFormat.format(GasReduction(km, routeRate))
+		+ " %\nQuilometragem: " + NewKm(km, routeRate) + " KM\nProxima revisao: " + NewReview() + " KM\nOleo:"
+		+ decimalFormat.format(OilReduction(km, routeRate)) + " ML\nKm para proxima revisao: " + KmForReview(km)
+		+ " KM\nNivel da agua: " + decimalFormat.format(WaterReduction(km, routeRate)) + " ML\n\n";
 
 	}
 

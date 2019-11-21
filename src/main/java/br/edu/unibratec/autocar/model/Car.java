@@ -110,13 +110,19 @@ public class Car {
 		this.nextReview = nextReview;
 	}
 
-	public void carStatus(Car car) {
+	public String carStatus() {
 		DecimalFormat decimalFormat = new DecimalFormat("###,##0");
-		System.out.println("-------------------------------------------------------------------------------------------------------------------\n\nGasolina:"
-				+ decimalFormat.format(car.getGasLevel()) + " %\nKm atual: " + car.getCurrentKm()
-				+ " KM\nProxima revisao: " + car.getNextReview() + " KM\nOleo:"
-				+ decimalFormat.format(car.getOilLevel()) + " ML\nKm para proxima revisao: " + car.getRemainingKm()
-				+ " KM\nNivel da agua: " + decimalFormat.format(car.getWaterLevel()) + " ML\n\n");
+//		System.out.println("-------------------------------------------------------------------------------------------------------------------\n\nGasolina:"
+//				+ decimalFormat.format(car.getGasLevel()) + " %\nKm atual: " + car.getCurrentKm()
+//				+ " KM\nProxima revisao: " + car.getNextReview() + " KM\nOleo:"
+//				+ decimalFormat.format(car.getOilLevel()) + " ML\nKm para proxima revisao: " + car.getRemainingKm()
+//				+ " KM\nNivel da agua: " + decimalFormat.format(car.getWaterLevel()) + " ML\n\n");
+		
+		return "-------------------------------------------------------------------------------------------------------------------\n\nGasolina:"
+		+ decimalFormat.format(this.getGasLevel()) + " %\nKm atual: " + this.getCurrentKm()
+		+ " KM\nProxima revisao: " + this.getNextReview() + " KM\nOleo:"
+		+ decimalFormat.format(this.getOilLevel()) + " ML\nKm para proxima revisao: " + this.getRemainingKm()
+		+ " KM\nNivel da agua: " + decimalFormat.format(this.getWaterLevel()) + " ML\n\n";
 		
 	}
 }

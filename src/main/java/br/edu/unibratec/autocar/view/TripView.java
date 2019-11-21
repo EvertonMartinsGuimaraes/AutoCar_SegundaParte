@@ -63,7 +63,7 @@ public class TripView {
 		carro.setPlace(facade.selectPlace(0));
 		facade.insertCar(carro);
 		// MOSTRANDO NO PAINEL O STATUS DO CARRO
-		facade.carStatus(selectCar);
+		System.out.println(facade.carStatus(selectCar));
 
 		for (; place != 0;) {
 			try {
@@ -271,8 +271,7 @@ public class TripView {
 						.println("Deseja realmente ir a " + facade.selectPlace(place).getName() + "?  1-SIM / 2-NÂO\n");
 
 				// CHAMA METODO DE CALCULO E STATUS DE UMA POSSIVEL CORRIDA
-				facade.calcTrack(facade.selectPlace(place).getDistance(), facade.selectPlace(place).getRoute(),
-						selectCar);
+				System.out.println(facade.calcTrack(place,selectCar));
 
 				confirm = Integer.parseInt(input.next());
 				if (confirm == 1) {

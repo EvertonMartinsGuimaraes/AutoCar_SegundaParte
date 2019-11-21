@@ -7,10 +7,10 @@ public class VehicleFront {
 
 		Scanner input = new Scanner(System.in);
 		TripView tripInstance = TripView.getInstance();
-		Imagens.getInstance().firstImage();
-		Thread.sleep(4000);
-		for (int i = 0; i < 200; ++i)
-			System.out.println();
+		//Imagens.getInstance().firstImage();
+		//Thread.sleep(4000);
+		//for (int i = 0; i < 200; ++i)
+		//	System.out.println();
 		Imagens.getInstance().secondImage();
 		Thread.sleep(4000);
 		for (int i = 0; i < 200; ++i)
