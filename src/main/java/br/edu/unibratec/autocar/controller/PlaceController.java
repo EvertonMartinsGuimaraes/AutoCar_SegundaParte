@@ -21,7 +21,7 @@ public class PlaceController implements IPlaceOperations<Place> {
 
 	public PlaceController() {
 
-		placeDao = new PlaceDAO();
+		placeDao = PlaceDAO.getInstance();
 	}
 
 	// METODO PARA ADICIONAR LUGARES NO ARRAY

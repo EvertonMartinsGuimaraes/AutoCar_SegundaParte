@@ -28,15 +28,15 @@ public class CarController implements ICarOperations<Car> {
 		switch (selectCar) {
 		case 1:
 			this.car = new CarFiat();
-			this.carDao = new CarDAO();
+			this.carDao = CarDAO.getInstance();
 			break;
 		case 2:
 			this.car = new CarVolkswagem();
-			this.carDao = new CarDAO();
+			this.carDao = CarDAO.getInstance();
 			break;
 		case 3:
 			this.car = new CarNissan();
-			this.carDao = new CarDAO();
+			this.carDao = CarDAO.getInstance();
 			break;
 		default:
 			System.out.println("Digite um valor correto para o menu.");

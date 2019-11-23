@@ -232,12 +232,12 @@ public class TripView {
 				case 2:
 					System.out.println(
 							"Qual lugar pelo id você deseja excluir? Caso tenha escolhido opção errada, digite um valor que nao corresponde a nenhum valor na lista.");
-					int IdDestinationRemove = Integer.parseInt(input.next());
-					if (IdDestinationRemove != 0) {
-						facade.deletePlace(IdDestinationRemove);
+					int IdPlaceRemove = Integer.parseInt(input.next());
+					if (IdPlaceRemove != 0) {
+						facade.deletePlace(IdPlaceRemove);
 						System.out.println("Lugar deletado com sucesso.");
 					} else
-						System.out.println("Digite um ID valido.");
+						System.out.println("Digite um ID valido...");
 					break;
 				case 3:
 					// FOREACH PARA VISUALIZAÇÃO DOS LUGARES INSERIDOS NO BANCO

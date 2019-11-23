@@ -8,14 +8,25 @@ import javax.management.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import br.edu.unibratec.autocar.controller.CarController;
 import br.edu.unibratec.autocar.interfaces.ICarModel;
 import br.edu.unibratec.autocar.model.Car;
 
 public class CarDAO{
 	
+	private static CarDAO instance;
 	private SessionFactory sessionFactory;
 	
-	public CarDAO() {
+	public static CarDAO getInstance() {
+		if (instance == null) {
+			instance = new CarDAO();
+
+		}
+		return instance;
+	}
+	
+	private CarDAO() {
 		// TODO Auto-generated constructor stub
 		this.sessionFactory = new Configuration().configure().buildSessionFactory();
 	}

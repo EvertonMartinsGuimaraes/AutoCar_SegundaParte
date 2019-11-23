@@ -36,10 +36,11 @@ public class OperacoesFacade {
 
 	}
 
-	public String calcTrack(int IdPlace,int selectCar) {
+	public String calcTrack(int IdPlace, int selectCar) {
 //		facade.selectPlace(place).getDistance(), facade.selectPlace(place).getRoute(),
 //		selectCar
-		return tripInstance.calcTrack(this.selectPlace(IdPlace).getDistance(), this.selectPlace(IdPlace).getRoute(), selectCar);
+		return tripInstance.calcTrack(this.selectPlace(IdPlace).getDistance(), this.selectPlace(IdPlace).getRoute(),
+				selectCar);
 
 	}
 
@@ -60,11 +61,11 @@ public class OperacoesFacade {
 	public void deleteCar(int id) {
 		carController.delete(id);
 	}
-	
+
 	public void deleteAllCar() {
 		for (Car car : getAllCar()) {
-			if(car.getId()>0)
-			carController.delete(car.getId());
+			if (car.getId() > 0)
+				carController.delete(car.getId());
 		}
 	}
 
@@ -132,7 +133,9 @@ public class OperacoesFacade {
 				updateCar(car);
 			}
 		}
-		placeController.delete(id);
+		if (id != idTemp) {
+			placeController.delete(id);
+		}
 
 	}
 
