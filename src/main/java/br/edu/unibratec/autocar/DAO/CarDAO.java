@@ -72,7 +72,7 @@ public class CarDAO{
 		return result;
 	}
 
-	public Car getWithId(int id) {
+	public Car select(int id) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		

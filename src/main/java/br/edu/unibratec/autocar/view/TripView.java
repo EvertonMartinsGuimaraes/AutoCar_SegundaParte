@@ -24,6 +24,10 @@ public class TripView {
 	OperacoesFacade facade;
 	ICarModel carModel;
 
+	private TripView() {
+
+	}
+
 	public static TripView getInstance() {
 		if (tripInstance == null) {
 			tripInstance = new TripView();
@@ -58,6 +62,7 @@ public class TripView {
 		Thread.sleep(2000);
 		for (int i = 0; i < 400; ++i)
 			System.out.println();
+		
 		facade = OperacoesFacade.getInstancia(selectCar);
 		carModel = facade.getCarModel();
 
@@ -214,13 +219,13 @@ public class TripView {
 
 					int routeConfirm = (int) (1 + (Math.random() * 2));
 					String name = input.nextLine();
-					if (name.length() >= 5 && name.length()<=15) {
+					if (name.length() >= 5 && name.length() <= 15) {
 						Pattern pattern = Pattern.compile("[0-9]");
 						Matcher match = pattern.matcher(name);
 						if (match.find()) {
 							System.out.println("Somente letras.");
 						} else {
-							
+
 							facade.insertNewPlace(routeConfirm, name);
 							System.out.println("O lugar '" + name + "' foi adicionado.");
 						}

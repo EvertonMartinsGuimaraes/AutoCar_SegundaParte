@@ -1,6 +1,5 @@
 package br.edu.unibratec.autocar.controller;
 
-
 import java.util.List;
 import br.edu.unibratec.autocar.DAO.CarDAO;
 import br.edu.unibratec.autocar.interfaces.ICarModel;
@@ -24,7 +23,11 @@ public class CarController implements ICarOperations<Car> {
 		return carInstance;
 	}
 
-	public CarController(int selectCar) {
+	private CarController() {
+
+	}
+
+	private CarController(int selectCar) {
 		switch (selectCar) {
 		case 1:
 			this.car = new CarFiat();
@@ -70,7 +73,7 @@ public class CarController implements ICarOperations<Car> {
 	}
 
 	public Car select(int id) {
-		return carDao.getWithId(id);
+		return carDao.select(id);
 	}
 
 }

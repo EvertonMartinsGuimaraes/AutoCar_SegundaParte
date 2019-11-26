@@ -9,7 +9,7 @@ import br.edu.unibratec.autocar.model.Place.ROUTE_TYPE;
 public class TripController {
 	int id = 1;
 	private static TripController tripInstance;
-	
+
 	PlaceController placeController = PlaceController.getInstance();
 
 	public static TripController getInstance() {
@@ -18,6 +18,10 @@ public class TripController {
 
 		}
 		return tripInstance;
+	}
+
+	private TripController() {
+
 	}
 
 	// MOSTRA O STATUS DO CARRO APOS UMA VIAGEM.
@@ -73,7 +77,7 @@ public class TripController {
 		Date data = (Date) Calendar.getInstance().getTime();
 		carro.setPlace(placeController.select(0));
 		carro.setData(data);
-		carro.setCurrentKm(carro.getCurrentKm()+10);
+		carro.setCurrentKm(carro.getCurrentKm() + 10);
 		CarController.getInstance(selectCar).insert(carro);
 		id++;
 	}

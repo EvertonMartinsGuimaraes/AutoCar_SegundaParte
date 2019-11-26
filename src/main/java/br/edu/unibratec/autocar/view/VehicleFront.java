@@ -11,14 +11,15 @@ public class VehicleFront {
 		//Thread.sleep(4000);
 		//for (int i = 0; i < 200; ++i)
 		//	System.out.println();
-		Imagens.getInstance().secondImage();
-		Thread.sleep(4000);
-		for (int i = 0; i < 200; ++i)
-			System.out.println();
+		//Imagens.getInstance().secondImage();
+		//Thread.sleep(4000);
+		//for (int i = 0; i < 200; ++i)
+		//	System.out.println();
+		
 		// LAÇO PARA O MENU - TRIPCONTROLLER -
 		tripInstance.generalMenu();
 
-		// CASO OPÇÃO PLACE SEJA IGUAL A 0 = SAIR.
+		// CASO OPÇÃO PLACE NO GENERAL MENU SEJA IGUAL A 0 = SAIR.
 		System.out.println("Obrigado por utilizar o computador de bordo.");
 		System.exit(0);
 		input.close();
