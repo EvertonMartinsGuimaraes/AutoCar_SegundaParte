@@ -1,6 +1,5 @@
 package br.edu.unibratec.autocar.interfaces;
 
-import br.edu.unibratec.autocar.model.Car;
 
 //INTERFACE MODELO DOS CARROS A SEREM CRIADOS.
 public interface ICarModel {
